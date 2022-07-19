@@ -91,7 +91,7 @@ input {
 
 #passed {
     padding: 2px 8px;
-    font-size: 14px;
+    font-size: 12px;
     display: inline;
     border-radius: 10px;
     font-weight: 600;
@@ -101,7 +101,7 @@ input {
 
 #failed {
     padding: 2px 8px;
-    font-size: 14px;
+    font-size: 12px;
     display: inline;
     border-radius: 10px;
     font-weight: 600;
