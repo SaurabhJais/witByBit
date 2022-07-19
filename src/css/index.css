@@ -21,39 +21,34 @@ div {
 }
 
 #view-profile-button {
-    box-sizing: border-box;
-
-    /* Auto layout */
-
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
     padding: 4px 10px;
-    gap: 10px;
-
     font-weight: 600;
     font-size: 12px;
     color: #2CA4D8;
-    width: 280px;
-
+    width: 100%;
     border: 1.5px solid #2CA4D8;
     filter: drop-shadow(0px 2px 20px rgba(56, 181, 235, 0.2));
     border-radius: 10px;
+}
+
+#sidebarLinks>div{
+    cursor: pointer;
+}
+
+#sidebarLinks>div:hover{
+    color: #2ca4d8;
+    font-weight: bold; 
+    opacity: "unset" ;
+    background: #eaf6fb;
+    border-radius: 10px
 }
 
 #addButton {
     width: 123px;
     height: 42px;
     border-radius: 10px;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
     padding: 8px 32px;
     gap: 8px;
-
     color: white;
     background: #2CA4D8;
     box-shadow: 0px 2px 20px rgba(56, 181, 235, 0.2);
@@ -94,7 +89,6 @@ input {
     font-size: 12px;
     display: inline;
     border-radius: 10px;
-    font-weight: 600;
     background-color: #2CBF6E;
     color: white;
 }
@@ -104,7 +98,6 @@ input {
     font-size: 12px;
     display: inline;
     border-radius: 10px;
-    font-weight: 600;
     color: white;
     background-color: #F24643;
 }

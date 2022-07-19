@@ -11,36 +11,13 @@ import bell from "./images/bell.png"
 import avtar from "./images/avtar.svg"
 import editIcon from "./images/editIcon.svg"
 import deleteIcon from "./images/deleteIcon.svg"
+import plus from "./images/plus.svg"
+import _dummyData from "./utils/dummyDate";
 
 
 
 function App() {
-    let dummyData = [
-        {
-            number: 1,
-            studentName: "Saurabh",
-            classValue: "8th",
-            score: 59,
-            result: "Passed",
-            grade: "Average",
-        },
-        {
-            number: 2,
-            studentName: "Satvik",
-            classValue: "10th",
-            score: 90,
-            result: "Passed",
-            grade: "Excellent",
-        },
-        {
-            number: 3,
-            studentName: "Ashish",
-            classValue: "11th",
-            score: 20,
-            result: "Failed",
-            grade: "Poor",
-        }
-    ]
+    let dummyData = _dummyData;
     let [studentName, setStudentName] = useState("");
     let [classValue, setClassValue] = useState("");
     let [score, setScore] = useState("");
@@ -404,7 +381,7 @@ function App() {
                             {/** Horizontal Line */}
                             <div className="border"></div>
                             {/* Links */}
-                            <div className="mt-3">
+                            <div id="sidebarLinks" className="mt-3">
                                 <div className="my-1 py-2 px-3">
                                     <img alt="wit-by-bit" src={dashborad} style={{ height: "20px", width: "20px" }} />
                                     <p id="sidebar-items-text" className="d-inline px-3">Dashborad</p>
@@ -466,7 +443,7 @@ function App() {
                         <div className="p-2" style={{ height: "100vh", background: "#F9FCFE" }}>
                             <div className="d-flex justify-content-between mt-4">
                                 <p style={{ fontWeight: "600", fontSize: "28px" }}>Students</p>
-                                <button id="addButton" onClick={emptyInputBoxes} data-bs-toggle="modal" data-bs-target="#addStudent" ><span className="fs-3">+</span> Add</button>
+                                <button id="addButton" onClick={emptyInputBoxes} data-bs-toggle="modal" data-bs-target="#addStudent" ><img src={plus} style={{marginRight: "7px"}} />ADD</button>
                             </div>
                             <div className="mt-2 border bg-white" style={{ height: "80%", overflow: "hidden", borderRadius: "10px" }}>
                                 <table className="w-100" style={{ fontSize: "14px", lineHeight: "3" }}>
