@@ -12,6 +12,7 @@ import avtar from "./images/avtar.svg"
 import editIcon from "./images/editIcon.svg"
 import deleteIcon from "./images/deleteIcon.svg"
 import plus from "./images/plus.svg"
+import hamberger from "./images/hamberger.png"
 import _dummyData from "./utils/dummyDate";
 
 
@@ -26,14 +27,14 @@ function App() {
     let [tableBody, setTableBody] = useState(dummyData);
     let [currentlyEditing, setCurrentlyEditing] = useState();
     let [currentlyDeleting, setCurrentlyDeleting] = useState();
-
+    let [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
 
 
     function nameChangeHandler(e) {
         let inp1 = e.target
         let nameError = e.target.nextSibling;
-        
+
 
         if (e.target.value === "") {
             inp1.style.borderColor = "red"
@@ -150,7 +151,7 @@ function App() {
                 document.getElementById("scoreError").className = "d-block text-danger"
             }
         } else {
-                setTableBody([...tableBody, data])
+            setTableBody([...tableBody, data])
         }
     }
 
@@ -180,9 +181,9 @@ function App() {
                 document.querySelector(".scoreError").className = "d-block text-danger"
             }
         } else {
-                let updated = tableBody;
-                updated[currentlyEditing] = data
-                setTableBody([...updated])
+            let updated = tableBody;
+            updated[currentlyEditing] = data
+            setTableBody([...updated])
         }
     }
 
@@ -202,8 +203,8 @@ function App() {
     }
 
     function emptyInputBoxes() {
-//        document.getElementsByName("editStudent")[0].reset();
-     //   document.getElementsByName("addStudent")[0].reset();
+        //        document.getElementsByName("editStudent")[0].reset();
+        //   document.getElementsByName("addStudent")[0].reset();
         document.getElementById("inp1").value = ""
         document.getElementById("inp2").value = ""
         document.getElementById("inp3").value = ""
@@ -234,10 +235,30 @@ function App() {
         z.style.color = "black"
     }
 
+    function hambergerClickHandler() {
+        let sidebar = document.getElementById("sidebar");
+        let ham = document.getElementById("hambergerIcon")
+        if (isSidebarOpen) {
+            sidebar.style.display = "block"
+            sidebar.style.position = "absolute"
+            sidebar.style.width = "280px"
+            ham.style.left = "280px"
+        } else {
+            sidebar.style.display = "none"
+            sidebar.style.position = "unset"
+            sidebar.style.width = "unset"
+            ham.style.left = "unset"
+        }
+        setIsSidebarOpen(!isSidebarOpen)
+    }
 
 
     return (
         <>
+            {/**Hamberger Icon */}
+            <div id="hambergerIcon" onClick={hambergerClickHandler}>
+                <img src={hamberger} />
+            </div>
 
             {/** Add student modal */}
             <div className="modal fade" id="addStudent" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -374,10 +395,12 @@ function App() {
 
 
 
+
+
             <div className="container-fluid">
                 <div className="row">
 
-                    <div id="sidebar" className="col-md-3" >
+                    <div id="sidebar" className="col-lg-3 bg-white" >
                         <div className="mx-3" style={{ height: "100vh" }}>
                             {/** Logo */}
                             <div className="py-4" >
@@ -444,11 +467,11 @@ function App() {
 
 
 
-                    <div className="col-md-9 " >
+                    <div className="col-lg-9 " >
                         <div className="p-2" style={{ height: "100vh", background: "#F9FCFE" }}>
                             <div className="d-flex justify-content-between mt-4">
                                 <p style={{ fontWeight: "600", fontSize: "28px" }}>Students</p>
-                                <button id="addButton" onClick={emptyInputBoxes} data-bs-toggle="modal" data-bs-target="#addStudent" ><img src={plus} style={{marginRight: "7px"}} />ADD</button>
+                                <button id="addButton" onClick={emptyInputBoxes} data-bs-toggle="modal" data-bs-target="#addStudent" ><img src={plus} style={{ marginRight: "7px" }} />ADD</button>
                             </div>
                             <div className="mt-2 border bg-white" style={{ minHeight: "80%", overflow: "hidden", borderRadius: "10px" }}>
                                 <table className="w-100" style={{ fontSize: "14px", lineHeight: "3" }}>

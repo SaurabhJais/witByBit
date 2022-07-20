@@ -31,14 +31,14 @@ div {
     border-radius: 10px;
 }
 
-#sidebarLinks>div{
+#sidebarLinks>div {
     cursor: pointer;
 }
 
-#sidebarLinks>div:hover{
+#sidebarLinks>div:hover {
     color: #2ca4d8;
-    font-weight: bold; 
-    opacity: "unset" ;
+    font-weight: bold;
+    opacity: "unset";
     background: #eaf6fb;
     border-radius: 10px
 }
@@ -153,4 +153,40 @@ input {
     border-radius: 10px;
     text-transform: uppercase;
     background-color: white;
-   }
+}
+
+
+
+
+#hambergerIcon {
+    display: none;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    top: 6px;
+    cursor: pointer;
+}
+
+#hambergerIcon img{
+    border: 2px solid black;
+    height: 33px;
+    padding: 6px;
+    border-radius: 0 15px 15px 0;
+}
+
+
+@media screen and (max-width: 991px) {
+    #sidebar {
+        display: none;
+    }
+    #hambergerIcon{
+        display: block;
+    }
+}
+
+@media screen and (min-width: 991px) {
+    #sidebar {
+        display: block!important;
+        position: unset!important;
+    }
+}
