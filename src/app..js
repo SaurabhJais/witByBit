@@ -75,55 +75,7 @@ function App() {
         let studentResult = inp3.parentElement.nextSibling.nextSibling;
         let studentGrade = studentResult.nextSibling.nextSibling.nextSibling.nextSibling;
         let value = e.target.value;
-
-
-        if (value > 100 || value < 0 || value === "" || isNaN(value)) {
-            inp3.style.borderColor = "red"
-            scoreError.className = "d-block text-danger scoreError"
-            setScore("")
-        } else {
-            inp3.style.borderColor = "#ced4da"
-            scoreError.className = "d-none text-danger scoreError"
-            setScore(value)
-        }
-
-
-        if (value >= 76 && value <= 100) {
-            setResult("Passed")
-            setGrade("Excellent")
-            studentResult.innerText = "Passed"
-            studentGrade.innerText = "Excellent"
-            studentGrade.style.color = "#2CBF6E"
-            studentResult.style.background = "#2CBF6E"
-            studentResult.style.color = "white"
-        }
-        if (value >= 31 && value <= 75) {
-            setResult("Passed")
-            setGrade("Average")
-            studentResult.innerText = "Passed"
-            studentGrade.innerText = "Average"
-            studentGrade.style.color = "#2CBF6E"
-            studentResult.style.background = "#2CBF6E"
-            studentResult.style.color = "white"
-        }
-        if (value >= 0 && value <= 30) {
-            setResult("Failed")
-            setGrade("Poor")
-            studentResult.innerText = "Failed"
-            studentGrade.innerText = "Poor"
-            studentGrade.style.color = "#F24643"
-            studentResult.style.background = "#F24643"
-            studentResult.style.color = "white"
-        }
-        if (value === "" || (value < 0 || value > 100)) {
-            setResult("-")
-            setGrade("-")
-            studentResult.innerHTML = "-"
-            studentGrade.innerText = "-"
-            studentGrade.style.color = "black"
-            studentResult.style.background = "transparent"
-            studentResult.style.color = "black"
-        }
+        makeResultAndGradeColorfull(value, scoreError, studentResult, studentGrade)
     }
 
     function handleAddStudentSubmit(e) {
@@ -187,6 +139,84 @@ function App() {
         }
     }
 
+    function editingIconClick(itemNumber) {
+        let inp1 = document.querySelector(".inp1")
+        let inp2 = document.querySelector(".inp2")
+        let inp3 = document.querySelector(".inp3")
+
+        let name = tableBody[itemNumber].studentName
+        let classValue = parseInt(tableBody[itemNumber].classValue)
+        let score = tableBody[itemNumber].score
+
+        inp1.value = name;
+        inp2.value = classValue
+        inp3.value = score;
+
+        setStudentName(name)
+        setClassValue(classValue)
+        setScore(score)
+        let scoreError = document.querySelector(".scoreError")
+        let studentResult = document.querySelector(".studentResult")
+        let studentGrade = document.querySelector(".studentGrade")
+
+        makeResultAndGradeColorfull(score, scoreError, studentResult, studentGrade)
+    }
+
+
+    function makeResultAndGradeColorfull(value, scoreError, studentResult, studentGrade) {
+        let inp3 = document.querySelector(".inp3")
+
+
+
+        if (value > 100 || value < 0 || value === "" || isNaN(value)) {
+            inp3.style.borderColor = "red"
+            scoreError.className = "d-block text-danger scoreError"
+            setScore("")
+        } else {
+            inp3.style.borderColor = "#ced4da"
+            scoreError.className = "d-none text-danger scoreError"
+            setScore(value)
+        }
+
+
+        if (value >= 76 && value <= 100) {
+            setResult("Passed")
+            setGrade("Excellent")
+            studentResult.innerText = "Passed"
+            studentGrade.innerText = "Excellent"
+            studentGrade.style.color = "#2CBF6E"
+            studentResult.style.background = "#2CBF6E"
+            studentResult.style.color = "white"
+        }
+        if (value >= 31 && value <= 75) {
+            setResult("Passed")
+            setGrade("Average")
+            studentResult.innerText = "Passed"
+            studentGrade.innerText = "Average"
+            studentGrade.style.color = "#2CBF6E"
+            studentResult.style.background = "#2CBF6E"
+            studentResult.style.color = "white"
+        }
+        if (value >= 0 && value <= 30) {
+            setResult("Failed")
+            setGrade("Poor")
+            studentResult.innerText = "Failed"
+            studentGrade.innerText = "Poor"
+            studentGrade.style.color = "#F24643"
+            studentResult.style.background = "#F24643"
+            studentResult.style.color = "white"
+        }
+        if (value === "" || (value < 0 || value > 100)) {
+            setResult("-")
+            setGrade("-")
+            studentResult.innerHTML = "-"
+            studentGrade.innerText = "-"
+            studentGrade.style.color = "black"
+            studentResult.style.background = "transparent"
+            studentResult.style.color = "black"
+        }
+    }
+
 
 
     function deletingIconClick(n) {
@@ -203,14 +233,10 @@ function App() {
     }
 
     function emptyInputBoxes() {
-        //        document.getElementsByName("editStudent")[0].reset();
-        //   document.getElementsByName("addStudent")[0].reset();
         document.getElementById("inp1").value = ""
         document.getElementById("inp2").value = ""
         document.getElementById("inp3").value = ""
-        document.querySelector(".inp1").value = ""
-        document.querySelector(".inp2").value = ""
-        document.querySelector(".inp3").value = ""
+
 
         setStudentName("");
         setClassValue("");
@@ -221,18 +247,13 @@ function App() {
         w.innerText = "-"
         w.style.backgroundColor = "white"
         w.style.color = "black"
-        let x = document.querySelector(".studentResult")
-        x.innerText = "-"
-        x.style.backgroundColor = "white"
-        x.style.color = "black"
         let y = document.getElementById("studentGrade")
         y.innerText = "-"
         y.style.backgroundColor = "white"
         y.style.color = "black"
-        let z = document.querySelector(".studentGrade")
-        z.innerText = "-"
-        z.style.backgroundColor = "white"
-        z.style.color = "black"
+
+
+
     }
 
     function hambergerClickHandler() {
@@ -255,10 +276,6 @@ function App() {
 
     return (
         <>
-            {/**Hamberger Icon */}
-            <div id="hambergerIcon" onClick={hambergerClickHandler}>
-                <img src={hamberger} />
-            </div>
 
             {/** Add student modal */}
             <div className="modal fade" id="addStudent" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -304,20 +321,19 @@ function App() {
                         </div>
                         <div className="modal-footer">
                             <button type="button" id="cancleButton" data-bs-dismiss="modal">Cancle</button>
-                            <button 
-                            type="submit" 
-                            id="submitButton" 
-                            onClick={handleAddStudentSubmit} 
-                            data-bs-dismiss={"modal"}
-                            className={(studentName === "" || classValue === "" || score === "") === true ? "btn disabled" : ""}
-                           >
+                            <button
+                                type="submit"
+                                id="submitButton"
+                                onClick={handleAddStudentSubmit}
+                                data-bs-dismiss={"modal"}
+                                className={(studentName === "" || classValue === "" || score === "") === true ? "btn disabled" : ""}
+                            >
                                 CONFIRM
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-
 
 
             {/** Edit student modal */}
@@ -364,17 +380,24 @@ function App() {
                         </div>
                         <div className="modal-footer">
                             <button type="button" id="cancleButton" data-bs-dismiss="modal">Cancle</button>
-                            <button 
-                            type="submit" 
-                            id="submitButton" 
-                            onClick={handleEditStudentSubmit} 
-                            data-bs-dismiss="modal"
-                            className={(studentName === "" || classValue === "" || score === "") === true ? "btn disabled" : ""}
+                            <button
+                                type="submit"
+                                id="submitButton"
+                                onClick={handleEditStudentSubmit}
+                                data-bs-dismiss="modal"
+                                className={(studentName === "" || classValue === "" || score === "") === true ? "btn disabled" : ""}
                             >CONFIRM</button>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+            {/**Hamberger Icon */}
+            <div id="hambergerIcon" onClick={hambergerClickHandler}>
+                <img src={hamberger} />
+            </div>
+
 
 
 
@@ -516,7 +539,7 @@ function App() {
 
                                         {
                                             tableBody.map((k, n) =>
-                                                <tr key={n} id="tableRow" className="border-bottom">
+                                                <tr key={n} id={"tableRow" + n} className="border-bottom tableRow">
                                                     <td className="px-4">{n + 1}</td>
                                                     <td style={{ color: "#242424", fontSize: "14px" }}>{k.studentName}</td>
                                                     <td>{k.classValue}</td>
@@ -524,7 +547,7 @@ function App() {
                                                     <td>{k.score}/ 100</td>
                                                     <td id={k.grade === "Poor" ? "poor" : "average"}>{k.grade}</td>
                                                     <td id="actionButtons">
-                                                        <img alt="wit-by-bit" id="editIcon" className={"mx-2"} onClick={() => { setCurrentlyEditing(n); emptyInputBoxes() }} data-bs-toggle="modal" data-bs-target="#editStudent" src={editIcon} />
+                                                        <img alt="wit-by-bit" id="editIcon" className={"mx-2"} onClick={() => { setCurrentlyEditing(n); editingIconClick(n) }} data-bs-toggle="modal" data-bs-target="#editStudent" src={editIcon} />
                                                         <img alt="wit-by-bit" id="deleteIcon" className="mx-2" onClick={() => { setCurrentlyDeleting(n); deletingIconClick(n) }} data-bs-toggle="modal" data-bs-target="#deleteStudent" src={deleteIcon} />
                                                     </td>
                                                 </tr>
