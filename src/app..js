@@ -304,7 +304,15 @@ function App() {
                         </div>
                         <div className="modal-footer">
                             <button type="button" id="cancleButton" data-bs-dismiss="modal">Cancle</button>
-                            <button type="submit" id="submitButton" onClick={handleAddStudentSubmit} data-bs-dismiss={(studentName === "" || classValue === "" || score === "") === false ? "modal" : ""}>CONFIRM</button>
+                            <button 
+                            type="submit" 
+                            id="submitButton" 
+                            onClick={handleAddStudentSubmit} 
+                            data-bs-dismiss={"modal"}
+                            className={(studentName === "" || classValue === "" || score === "") === true ? "btn disabled" : ""}
+                           >
+                                CONFIRM
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -356,7 +364,13 @@ function App() {
                         </div>
                         <div className="modal-footer">
                             <button type="button" id="cancleButton" data-bs-dismiss="modal">Cancle</button>
-                            <button type="submit" id="submitButton" onClick={handleEditStudentSubmit} data-bs-dismiss={(studentName === "" || classValue === "" || score === "") === false ? "modal" : ""}>CONFIRM</button>
+                            <button 
+                            type="submit" 
+                            id="submitButton" 
+                            onClick={handleEditStudentSubmit} 
+                            data-bs-dismiss="modal"
+                            className={(studentName === "" || classValue === "" || score === "") === true ? "btn disabled" : ""}
+                            >CONFIRM</button>
                         </div>
                     </div>
                 </div>
