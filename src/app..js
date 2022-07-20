@@ -23,7 +23,6 @@ function App() {
     let [score, setScore] = useState("");
     let [result, setResult] = useState("");
     let [grade, setGrade] = useState("");
-    let [isError, setIsError] = useState(true)
     let [tableBody, setTableBody] = useState(dummyData);
     let [currentlyEditing, setCurrentlyEditing] = useState();
     let [currentlyDeleting, setCurrentlyDeleting] = useState();
@@ -32,46 +31,44 @@ function App() {
 
 
     function nameChangeHandler(e) {
-        setStudentName(e.target.value)
         let inp1 = e.target
         let nameError = e.target.nextSibling;
+        
 
         if (e.target.value === "") {
             inp1.style.borderColor = "red"
-            nameError.className = "d-block text-danger"
+            nameError.className = "d-block text-danger nameError"
             nameError.children[0].children[0].innerText = "Error: Name should not empty"
-            setIsError(true)
+            setStudentName("")
         } else {
             inp1.style.borderColor = "#ced4da"
-            nameError.className = "d-none text-danger"
-            setIsError(false)
+            nameError.className = "d-none text-danger nameError"
+            setStudentName(e.target.value)
         }
         if (e.target.value !== "" && isNaN(e.target.value) === false) {
             inp1.style.borderColor = "red"
-            nameError.className = "d-block text-danger"
+            nameError.className = "d-block text-danger nameError"
             nameError.children[0].children[0].innerText = "Error: Name should not be a number"
-            setIsError(true)
+            setStudentName("")
         }
     }
 
     function classChangeHandler(e) {
-        setClassValue(e.target.value)
         let inp2 = e.target;
         let classError = inp2.nextSibling;
 
         if (e.target.value > 12 || e.target.value < 1 || e.target.value === "" || isNaN(e.target.value)) {
             inp2.style.borderColor = "red"
-            classError.className = "d-block text-danger"
-            setIsError(true)
+            classError.className = "d-block text-danger classError"
+            setClassValue("")
         } else {
             inp2.style.borderColor = "#ced4da"
-            classError.className = "d-none text-danger"
-            setIsError(false)
+            classError.className = "d-none text-danger classError"
+            setClassValue(e.target.value)
         }
     }
 
     function scoreChangeHandler(e) {
-        setScore(e.target.value)
         let inp3 = e.target
         let scoreError = inp3.nextSibling;
         let studentResult = inp3.parentElement.nextSibling.nextSibling;
@@ -81,12 +78,12 @@ function App() {
 
         if (value > 100 || value < 0 || value === "" || isNaN(value)) {
             inp3.style.borderColor = "red"
-            scoreError.className = "d-block text-danger"
-            setIsError(true)
+            scoreError.className = "d-block text-danger scoreError"
+            setScore("")
         } else {
             inp3.style.borderColor = "#ced4da"
-            scoreError.className = "d-none text-danger"
-            setIsError(false)
+            scoreError.className = "d-none text-danger scoreError"
+            setScore(value)
         }
 
 
@@ -153,12 +150,10 @@ function App() {
                 document.getElementById("scoreError").className = "d-block text-danger"
             }
         } else {
-
-            if (isError === false) {
                 setTableBody([...tableBody, data])
-            }
         }
     }
+
 
     function handleEditStudentSubmit(e) {
         e.preventDefault()
@@ -184,15 +179,13 @@ function App() {
                 document.querySelector(".inp3").style.borderColor = "red"
                 document.querySelector(".scoreError").className = "d-block text-danger"
             }
-            setIsError(true)
         } else {
-            if (isError === false) {
                 let updated = tableBody;
                 updated[currentlyEditing] = data
                 setTableBody([...updated])
-            }
         }
     }
+
 
 
     function deletingIconClick(n) {
@@ -209,8 +202,20 @@ function App() {
     }
 
     function emptyInputBoxes() {
-        document.getElementsByName("editStudent")[0].reset();
-        document.getElementsByName("addStudent")[0].reset();
+//        document.getElementsByName("editStudent")[0].reset();
+     //   document.getElementsByName("addStudent")[0].reset();
+        document.getElementById("inp1").value = ""
+        document.getElementById("inp2").value = ""
+        document.getElementById("inp3").value = ""
+        document.querySelector(".inp1").value = ""
+        document.querySelector(".inp2").value = ""
+        document.querySelector(".inp3").value = ""
+
+        setStudentName("");
+        setClassValue("");
+        setScore("")
+        setGrade("")
+        setResult("")
         let w = document.getElementById("studentResult")
         w.innerText = "-"
         w.style.backgroundColor = "white"
@@ -246,20 +251,20 @@ function App() {
                             <form name="addStudent">
                                 <div className="mb-3">
                                     <label htmlFor="recipient-name" className="col-form-label">Student Name*</label>
-                                    <input type="text" minLength={1} name="studentName" onChange={nameChangeHandler} className="form-control inp1" id="inp1" />
+                                    <input type="text" minLength={1} name="studentName" onChange={nameChangeHandler} className="form-control " id="inp1" />
                                     <p id="nameError" className=" d-none text-danger"><i><small>Error: Name field cannot be left blank.</small></i></p>
                                 </div>
 
                                 <div className="mb-3">
                                     <label htmlFor="recipient-name" className="col-form-label">Class*</label>
-                                    <input type="text" required={true} name="classValue" onChange={classChangeHandler} className="form-control inp2" id="inp2" />
+                                    <input type="text" name="classValue" onChange={(e) => classChangeHandler(e)} className="form-control " id="inp2" />
                                     <p id="classError" className=" d-none text-danger"><i><small>Error: Please enter value between 1 & 12</small></i></p>
                                 </div>
 
 
                                 <div className="mb-3">
                                     <label htmlFor="recipient-name" className="col-form-label">Score*</label>
-                                    <input type="text" min={0} max={100} name="score" onChange={scoreChangeHandler} className="form-control inp3" id="inp3" />
+                                    <input type="text" name="score" onChange={scoreChangeHandler} className="form-control " id="inp3" />
                                     <p id="scoreError" className=" d-none text-danger"><i><small>Error: Please enter value between 0 & 100</small></i></p>
                                 </div>
 
@@ -298,21 +303,21 @@ function App() {
                             <form name="editStudent">
                                 <div className="mb-3">
                                     <label htmlFor="recipient-name" className="col-form-label">Student Name*</label>
-                                    <input type="text" name="studentName" onChange={nameChangeHandler} className="form-control" id="inp11" />
-                                    <p id="nameError" className="nameError d-none text-danger"><i><small>Error: Name field cannot be left blank.</small></i></p>
+                                    <input type="text" name="studentName" onChange={nameChangeHandler} className="form-control inp1" id="inp1" />
+                                    <p id="nameError" className="d-none text-danger nameError"><i><small>Error: Name field cannot be left blank.</small></i></p>
                                 </div>
 
                                 <div className="mb-3">
                                     <label htmlFor="recipient-name" className="col-form-label">Class*</label>
-                                    <input type="text" name="classValue" onChange={classChangeHandler} className="form-control" id="inp2" />
+                                    <input type="text" name="classValue" onChange={classChangeHandler} className="form-control inp2" id="inp2" />
                                     <p id="classError" className="classError d-none text-danger"><i><small>Error: Please enter value between 1 & 12</small></i></p>
                                 </div>
 
 
                                 <div className="mb-3">
                                     <label htmlFor="recipient-name" className="col-form-label">Score*</label>
-                                    <input type="text" name="score" onChange={scoreChangeHandler} className="form-control" id="inp3" />
-                                    <p id="scoreError i4" className=" scoreError d-none text-danger"><i><small>Error: Please enter value between 0 & 100</small></i></p>
+                                    <input type="text" name="score" onChange={scoreChangeHandler} className="form-control inp3" id="inp3" />
+                                    <p id="scoreError i4" className="scoreError d-none text-danger"><i><small>Error: Please enter value between 0 & 100</small></i></p>
                                 </div>
 
                                 <p style={{ fontSize: "12px", color: "#7F878A" }}><b>RESULT</b></p>
@@ -445,7 +450,7 @@ function App() {
                                 <p style={{ fontWeight: "600", fontSize: "28px" }}>Students</p>
                                 <button id="addButton" onClick={emptyInputBoxes} data-bs-toggle="modal" data-bs-target="#addStudent" ><img src={plus} style={{marginRight: "7px"}} />ADD</button>
                             </div>
-                            <div className="mt-2 border bg-white" style={{ height: "80%", overflow: "hidden", borderRadius: "10px" }}>
+                            <div className="mt-2 border bg-white" style={{ minHeight: "80%", overflow: "hidden", borderRadius: "10px" }}>
                                 <table className="w-100" style={{ fontSize: "14px", lineHeight: "3" }}>
                                     <colgroup>
                                         <col style={{ width: "10%" }} />
